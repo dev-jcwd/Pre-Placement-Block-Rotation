@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "rotationplacement",
+  "version": "${version}",
+  "name": "Rotation Placement",
+  "description": "A QOL mod for pre-placement block rotation with a translucent preview.",
+  "authors": [
+    "jcwd"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/rotationplacement/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.rotationplacement.RotationPlacement"
+    ],
+    "client": [
+      "com.rotationplacement.RotationPlacementClient"
+    ]
+  },
+  "mixins": [
+    "rotationplacement.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "fabric-api": "*",
+    "minecraft": ">=1.21 <1.22",
+    "java": ">=21"
+  }
+}
