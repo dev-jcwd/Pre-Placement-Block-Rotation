@@ -2,11 +2,10 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.rotationplacement.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "BlockItemMixin",
-  ],
+  "compatibilityLevel": "JAVA_${java_version}",
   "client": [
+    "BlockItemInvoker",
+    "BlockItemMixin"${extra_mixins}
   ],
   "injectors": {
     "defaultRequire": 1

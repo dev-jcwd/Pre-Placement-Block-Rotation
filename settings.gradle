@@ -1,12 +1,13 @@
 pluginManagement {
     repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
+        maven { url = "https://maven.fabricmc.net/" }
         mavenCentral()
         gradlePluginPortal()
     }
 }
+
+// Two build scripts because 1.21.x (Yarn names) and 26.x (official names, no remapping) use different Loom plugins.
+def lane = providers.gradleProperty('lane').getOrElse('yarn')
+rootProject.buildFileName = lane == 'official' ? 'build-official.gradle' : 'build.gradle'
 
 rootProject.name = 'RotationPlacement'
