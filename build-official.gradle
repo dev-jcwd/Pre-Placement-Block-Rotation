@@ -1,0 +1,48 @@
+// Minecraft 26.1 and newer (official Mojang names, no remapping). The 1.21.x build is build.gradle.
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+    id 'maven-publish'
+}
+
+version = "${project.mod_version}+${project.minecraft_version}"
+group = project.mod_group_id
+
+base {
+    archivesName = project.mod_id
+}
+
+sourceSets.main.java.setSrcDirs(["src/shared/java", "src/official/java", "src/compat/${project.compat}/java"])
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // Fabric API (keybinds, tick and render events)
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+    def extra = project.extra_mixin.isEmpty() ? "" : ', "' + project.extra_mixin + '"'
+    def props = [version: project.version, mc_range: project.mc_range, java_version: project.java_version, extra_mixins: extra]
+    inputs.properties(props)
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") { expand props }
+    filesMatching("rotationplacement.mixins.json") { expand props }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = Integer.parseInt(project.java_version)
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(project.java_version)
+    targetCompatibility = JavaVersion.toVersion(project.java_version)
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}

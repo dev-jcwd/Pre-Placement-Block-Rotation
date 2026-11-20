@@ -9,8 +9,7 @@
   ],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/rotationplacement/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "com.rotationplacement.RotationPlacement"
@@ -23,9 +22,9 @@
     "rotationplacement.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.9",
+    "fabricloader": ">=0.18.1",
     "fabric-api": "*",
-    "minecraft": ">=1.21 <1.22",
-    "java": ">=21"
+    "minecraft": "${mc_range}",
+    "java": ">=${java_version}"
   }
 }
